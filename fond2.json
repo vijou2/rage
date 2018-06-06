@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "fond2.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 3846,
+				"h": 539
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "StreetsOfRage-Round1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 3844,
+						"h": 192
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 3844,
+						"h": 192
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 3844,
+						"h": 192
+					}
+				},
+				{
+					"filename": "AxelSOR1.gif",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 549,
+						"h": 343
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 549,
+						"h": 343
+					},
+					"frame": {
+						"x": 1,
+						"y": 195,
+						"w": 549,
+						"h": 343
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:4375c58eff86821f8653807d6471f883:c7a764388e7c4f190ea28fcd85f5da09:50ebe5e001c29b528c718544ac03f175$"
+	}
+}
