@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "axel.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 111,
+				"h": 67
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "walk3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 0,
+						"w": 43,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 43,
+						"h": 64
+					}
+				},
+				{
+					"filename": "walk2.png",
+					"rotated": true,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 0,
+						"w": 40,
+						"h": 64
+					},
+					"frame": {
+						"x": 46,
+						"y": 1,
+						"w": 40,
+						"h": 64
+					}
+				},
+				{
+					"filename": "walk4.png",
+					"rotated": true,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 0,
+						"w": 40,
+						"h": 64
+					},
+					"frame": {
+						"x": 46,
+						"y": 1,
+						"w": 40,
+						"h": 64
+					}
+				},
+				{
+					"filename": "walk1.png",
+					"rotated": true,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 0,
+						"w": 23,
+						"h": 64
+					},
+					"frame": {
+						"x": 46,
+						"y": 43,
+						"w": 23,
+						"h": 64
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:14dab5d0d248cec35ff9167585d787af:4e75de34d2a6b16e6a80811a3899e86a:c0af8f8fe5a141a8a3b0321dc496cba7$"
+	}
+}
