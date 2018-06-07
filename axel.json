@@ -2,7 +2,7 @@
 
 "walk1.png":
 {
-	"frame": {"x":91,"y":1,"w":40,"h":64},
+	"frame": {"x":46,"y":1,"w":40,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":0,"w":40,"h":64},
@@ -18,18 +18,18 @@
 },
 "walk3.png":
 {
-	"frame": {"x":46,"y":1,"w":43,"h":64},
+	"frame": {"x":88,"y":1,"w":40,"h":64},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":21,"y":0,"w":43,"h":64},
+	"spriteSourceSize": {"x":15,"y":0,"w":40,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
 "walk4.png":
 {
-	"frame": {"x":133,"y":1,"w":40,"h":64},
+	"frame": {"x":130,"y":1,"w":40,"h":64},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":15,"y":0,"w":40,"h":64},
+	"spriteSourceSize": {"x":14,"y":0,"w":40,"h":64},
 	"sourceSize": {"w":64,"h":64}
 }},
 "meta": {
@@ -37,8 +37,8 @@
 	"version": "1.0",
 	"image": "axel.png",
 	"format": "RGBA8888",
-	"size": {"w":174,"h":66},
+	"size": {"w":171,"h":66},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8a0f0fd5e6aad46bbf314210bbc4f46f:7a508424a634fb4789a54f924ed789fc:c0af8f8fe5a141a8a3b0321dc496cba7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8b8071b146ceb9651adec34a3e898407:97870e01f05a17b9490df5203a818d4c:c0af8f8fe5a141a8a3b0321dc496cba7$"
 }
 }
