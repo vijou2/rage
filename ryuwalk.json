@@ -1,0 +1,100 @@
+{"frames": {
+
+"frame_00.png":
+{
+	"frame": {"x":1144,"y":1,"w":167,"h":192},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":9,"w":167,"h":192},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_01.png":
+{
+	"frame": {"x":670,"y":1,"w":135,"h":196},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":29,"y":2,"w":135,"h":196},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_02.png":
+{
+	"frame": {"x":1482,"y":1,"w":128,"h":192},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":2,"w":128,"h":192},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_03.png":
+{
+	"frame": {"x":545,"y":1,"w":123,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":1,"w":123,"h":197},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_04.png":
+{
+	"frame": {"x":268,"y":1,"w":109,"h":201},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":0,"w":109,"h":201},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_05.png":
+{
+	"frame": {"x":151,"y":1,"w":115,"h":201},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":0,"w":115,"h":201},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_06.png":
+{
+	"frame": {"x":1,"y":1,"w":148,"h":201},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":0,"w":148,"h":201},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_07.png":
+{
+	"frame": {"x":379,"y":1,"w":164,"h":199},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":2,"w":164,"h":199},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_08.png":
+{
+	"frame": {"x":807,"y":1,"w":167,"h":195},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":6,"w":167,"h":195},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_09.png":
+{
+	"frame": {"x":976,"y":1,"w":166,"h":193},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":8,"w":166,"h":193},
+	"sourceSize": {"w":200,"h":202}
+},
+"frame_10.png":
+{
+	"frame": {"x":1313,"y":1,"w":167,"h":192},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":9,"w":167,"h":192},
+	"sourceSize": {"w":200,"h":202}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ryuwalk.png",
+	"format": "RGBA8888",
+	"size": {"w":1611,"h":203},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:18bac08069bd32523ae319878accce11:aba555fa809e1654184689ff3bfc7df5:f0a0eb63a125fb99f8b03047647a01ac$"
+}
+}

@@ -4,39 +4,14 @@
 			"image": "fond3.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 3912,
-				"h": 194
+				"w": 111,
+				"h": 67
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "StreetsOfRage-Round1.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 3844,
-						"h": 192
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3844,
-						"h": 192
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 3844,
-						"h": 192
-					},
-					"anchor": {
-						"x": 0,
-						"y": 0
-					}
-				},
-				{
 					"filename": "walk3.png",
-					"rotated": true,
+					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
 						"w": 64,
@@ -49,14 +24,10 @@
 						"h": 64
 					},
 					"frame": {
-						"x": 3847,
+						"x": 1,
 						"y": 1,
 						"w": 43,
 						"h": 64
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -74,14 +45,10 @@
 						"h": 64
 					},
 					"frame": {
-						"x": 3847,
-						"y": 46,
+						"x": 46,
+						"y": 1,
 						"w": 40,
 						"h": 64
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -99,14 +66,10 @@
 						"h": 64
 					},
 					"frame": {
-						"x": 3847,
-						"y": 46,
+						"x": 46,
+						"y": 1,
 						"w": 40,
 						"h": 64
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
 					}
 				},
 				{
@@ -124,14 +87,10 @@
 						"h": 64
 					},
 					"frame": {
-						"x": 3847,
-						"y": 88,
+						"x": 46,
+						"y": 43,
 						"w": 23,
 						"h": 64
-					},
-					"anchor": {
-						"x": 0,
-						"y": 0
 					}
 				}
 			]
@@ -140,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:a040e4b0ea2f1086267596ce7dcd0439:710cc08475b772a3bd8a24ebf88972f7:ae00d4a1def28dc33b5ddb3b1625c7da$"
+		"smartupdate": "$TexturePacker:SmartUpdate:fcc1b98ebbb9863915dcaa05664ce612:4e75de34d2a6b16e6a80811a3899e86a:ae00d4a1def28dc33b5ddb3b1625c7da$"
 	}
 }
