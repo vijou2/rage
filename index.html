@@ -1,91 +1,300 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8" />
-    <title>Making your first Phaser 3 Game - Part 10</title>
+<html lang="en"><head> 
+    <meta charset="UTF-8">
+    <title>streets of olivier</title>
+ <script src="http://cdn.jsdelivr.net/npm/phaser@3.10.1/dist/phaser.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/gh/photonstorm/phaser@3.10.1/dist/phaser-arcade-physics.min.js"></script>
-  
+
     <style type="text/css">
         body {
             margin: 0;
         }
     </style>
 </head>
-<body>
+<body style="overflow: hidden;">
 
-<script type="text/javascript">
-
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    backgroundColor: '#1E423A',
-    height: 576,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { x: 0 },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-var player;
-var stars;
-var bombs;
-var platforms;
-var cursors;
-var score = 0;
-var gameOver = false;
-var scoreText;
-var mixedbutton ;
-var rightlast;  
-var fireButton;  
-var keys;
-var game = new Phaser.Game(config);
-
+<script type="text/javascript">4
+  
+var SceneA = new Phaser.Class({
   
 
-function preload ()
-{
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function SceneA ()
+    {
+        Phaser.Scene.call(this, { key: 'sceneA' });
+    },
+
+ preload: function ()
+    {this.load.setBaseURL('https://raw.githubusercontent.com/vijou2/rage/master/');
+      this.load.image('start', 'start-8.png');
+      this.load.image('storybgd', 'story-bgd.png');
+      this.load.image('head', 'head.png');
+      this.load.image('hand', 'hand.png');
+      this.load.image('city', 'city.png');
+       this.load.image('introtext', 'texteintro.png');
+       this.load.audio('select', [ 'https://raw.githubusercontent.com/vijou2/rage/master/02%20Character%20Select.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/02%20Character%20Select.mp3' ]);  
+      this.load.audio('story', [ 'https://raw.githubusercontent.com/vijou2/rage/master/intro.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/02%20Character%20Select.mp3' ]);
+          this.load.audio('bip', [ 'https://raw.githubusercontent.com/vijou2/rage/master/24.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.mp3' ]); 
+
+    },
+
+    create: function ()
+    {storyonce=0;   
+      buttonenter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+     trackselect = this.sound.add('select'); trackselect.play();trackbip = this.sound.add('bip'); var rect = new Phaser.Geom.Rectangle(-200, 00, 3000, 2000);
+
+    var graphics = this.add.graphics({ fillStyle: { color: 0x000000 } });
+
+    graphics.fillRectShape(rect);
+        start= this.add.sprite(550, 300, 'start').setAlpha(1);start.setScale(1,0.7);
+trackstory =this.sound.add('story'); 
+       this.input.keyboard.on('keydown_ENTER', function () {  if (storyonce< 1 ) {trackbip.play();storyonce=1;
+city= this.add.sprite(550, 250, 'city').setAlpha(0);city.setScale(2,2);
+ handleft= this.add.sprite(-550, 250, 'hand') ;
+ handright= this.add.sprite(1300, 250, 'hand');
+    handright.setScale(-1,1);
+  head= this.add.sprite(550, -200, 'head');
+  textintro= this.add.sprite(550,1400, 'introtext')                                                           
+trackselect.stop();trackstory.play();
+                                                       
+  
+    this.tweens.add({
+        targets: city,
+        alphaTopLeft: { value: 1, duration: 5000, ease: 'Power1' },
+       alphaTopRight: { value: 1, duration: 5000, ease: 'Power1' },
+        alphaBottomRight: { value: 1, duration: 10000, ease: 'Power1' },
+        alphaBottomLeft: { value: 1, duration: 5000, ease: 'Power1', delay: 5000 },
+        yoyo: false,
+        loop: 0
+    });         
+ var timeline = this.tweens.timeline({
+
+        tweens: [{
+            targets: handleft,
+            x: 400,
+            ease: 'Power1',
+            duration: 6000,
+          delay:6000
+        },
+        {
+            targets: handright,
+           x: 700,
+            ease: 'Power1',
+            duration: 6000
+        },
+        {
+            targets: head,
+            y: 150,
+            ease: 'Power1',
+            duration: 6000
+        },
+          {
+            targets: textintro,
+            y: -1000,
+            ease: '',
+            duration: 60000
+        },       
+      ]
+
+    });
+                                                                                                                      }   else {trackstory.stop();trackbip.play();this.scene.start('sceneB');}  
+
+        }, this);
+     
+ 
+    },
+
+    update: function (time, delta,selfphaserA)
+    {
+         
+    }
+
+});
+
+var SceneB = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function SceneB ()
+    {
+        Phaser.Scene.call(this, { key: 'sceneB' });
+    },
+
+       preload: function ()
+    {var rect = new Phaser.Geom.Rectangle(-200, 00, 3000, 2000);
+
+    var graphics = this.add.graphics({ fillStyle: { color: 0x000000 } });
+
+    graphics.fillRectShape(rect);
+        var progress = this.add.graphics();
+
+ this.add.text(350, 200, 'Streets of Olivier', { fontFamily: 'Arial', fontSize: 64, color: '#ffffff'});
+    this.load.on('progress', function (value) {
+
+
+        progress.clear();
+        progress.fillStyle(0xffffff, 1);
+        progress.fillRect(0, 50, 1024 * value, 10);
+
+    });
+
+    this.load.on('complete', function () {
+
+        progress.destroy();
+
+    }); 
       this.load.setBaseURL('https://raw.githubusercontent.com/vijou2/rage/master/');
     this.load.image('sky', 'sky.png');
     this.load.image('ground', 'platform.png');
     this.load.image('star', 'star.png');
     this.load.image('bomb', 'bomb.png');
-    this.load.spritesheet('dude', 'ryuwalk11.png', { frameWidth:200, frameHeight: 202 });this.load.atlas('fond2', 'fond2.png', 'fond2.json');
-this.load.audio('jungle', [ 'https://raw.githubusercontent.com/vijou2/rage/master/03%20Round%201%20Part%201%20Go%20Straight%20.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/jungle.mp3' ]);
+    this.load.spritesheet('dude', 'olivryu1.png', { frameWidth:200, frameHeight: 202 });
+      this.load.spritesheet('dragonpunch', 'dragonpunch.png', { frameWidth:170, frameHeight: 224 });
+  this.load.spritesheet('boulehado', 'boulehadoken.png', { frameWidth:100, frameHeight: 93 });
+    this.load.spritesheet('kick', 'kick.png', { frameWidth:229, frameHeight: 112 });
+    this.load.spritesheet('punch', 'punch.png', { frameWidth:248, frameHeight: 200 });
+    this.load.spritesheet('sagadid', 'sagadid.png', { frameWidth:334, frameHeight: 636 });
+       this.load.spritesheet('tiger', 'tiger.png', { frameWidth:303, frameHeight: 143 });
+    this.load.spritesheet('enemy1', 'enemy1.png', { frameWidth:40, frameHeight: 65 });
+    this.load.spritesheet('doctor', 'doctor.png', { frameWidth:58, frameHeight: 85 });
+    this.load.spritesheet('djeed', 'djeed.png', { frameWidth:316, frameHeight: 293 });  
+    this.load.spritesheet('vegeta', 'vegeta.png', { frameWidth:205, frameHeight: 300 });
+     this.load.spritesheet('hulk', 'hulk.png', { frameWidth:200, frameHeight: 260 });      this.load.spritesheet('theo', 'theo.png', { frameWidth:256, frameHeight: 600 });    
+    this.load.image('fond2', 'StreetsOfRage-Round1-3.png');
+         this.load.image('mission', 'mission.png');
+     this.load.spritesheet('voiture', 'voitureremorque.png', { frameWidth:800, frameHeight: 230 });  
+      this.load.spritesheet('djeedattack', 'djeepattack.png', { frameWidth:600, frameHeight: 473 }); 
+       this.load.spritesheet('shoryuken', 'shoryu.png', { frameWidth:238, frameHeight: 256 }); 
+         this.load.spritesheet('hulkattack', 'hulkattack.png', { frameWidth:255, frameHeight: 196 }); 
+    this.load.image('flame', 'flame.png');
+      this.load.image('cloud', 'cloud2.png');
+      this.load.image('glaciere', 'glaciere2.png');
+      this.load.image('arrow', 'arrow.png');
+this.load.audio('punch-air', [ 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);
+     this.load.audio('djeed-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/djeed.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/djeed.mp3' ]);
+this.load.audio('kick-air', [ 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-2.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-2.mp3' ]);  
+  this.load.audio('burnout', [ 'https://raw.githubusercontent.com/vijou2/rage/master/burnout.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/burnout.mp3' ]);  
+  
+ this.load.audio('dead-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/dead.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/dead.mp3' ]);
+   this.load.audio('sagat-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/sagat.ogg', '#' ]);
+this.load.audio('jungle', [ 'https://raw.githubusercontent.com/vijou2/rage/master/03%20Fighting%20In%20The%20Street.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/jungle.mp3' ]);
+
+  this.load.audio('dragonpunch-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/dragonpunch.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/dragonpunch.mp3' ]);
 this.load.audio('punch-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/PUNCH.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/punch.mp3' ]);
+ this.load.audio('kick-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/punch1.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/punch1.mp3' ]); 
+ this.load.audio('hadoken-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/hadouken.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/hadouken.mp3' ]); 
+  this.load.audio('earthquake', [ 'https://raw.githubusercontent.com/vijou2/rage/master/EarthQuake.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/EarthQuake.mp3' ]); 
+  this.load.audio('explosion', [ 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.mp3' ]); 
+      this.load.audio('bip', [ 'https://raw.githubusercontent.com/vijou2/rage/master/24.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.mp3' ]);
+this.load.audio('tigershot', [ 'https://raw.githubusercontent.com/vijou2/rage/master/tigershot.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.mp3' ]);  
+     this.load.audio('scream', [ 'https://raw.githubusercontent.com/vijou2/rage/master/scream.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/Explosion.mp3' ]);  
+     this.load.audio('hulk-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/hulk.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);
+   this.load.audio('hulk-roar', [ 'https://raw.githubusercontent.com/vijou2/rage/master/hulk_roar.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]); 
+     this.load.audio('ken', [ 'https://raw.githubusercontent.com/vijou2/rage/master/ken.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);
+      this.load.audio('shoryuken-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/ken_sho.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);   
+       this.load.audio('dbz-s', [ 'https://raw.githubusercontent.com/vijou2/rage/master/dbz.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);     
+        this.load.audio('finalflash', [ 'https://raw.githubusercontent.com/vijou2/rage/master/finalflash.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]);  
+             this.load.audio('teleport', [ 'https://raw.githubusercontent.com/vijou2/rage/master/teleport.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]); 
+                  this.load.audio('all', [ 'https://raw.githubusercontent.com/vijou2/rage/master/boss.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]); 
+     
+         this.load.audio('zombie', [ 'https://raw.githubusercontent.com/vijou2/rage/master/zombie.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]); 
+          this.load.audio('clear', [ 'https://raw.githubusercontent.com/vijou2/rage/master/clear.ogg', 'https://raw.githubusercontent.com/vijou2/rage/master/fleche-1.mp3' ]); 
+this.load.spritesheet('hadokendude', 'hadoken.png', {
+        frameWidth: 254,
+        frameHeight: 124
+      });
+     this.load.atlas('flares', 'flares.png', 'flares.json');  
+     
+    },
 
-}
-
-function create ()
-{track = this.sound.add('jungle'); 
+    create: function ()
+    {
+        track = this.sound.add('jungle'); 
  trackpunch = this.sound.add('punch-s'); 
- bgd1 = this.add.sprite(-500, -500, 'fond2', 'StreetsOfRage-Round1.png').setOrigin(0, -0.5);bgd1.setScale(4,5);
+ trackdead=this.sound.add('dead-s');
+ trackdragonpunch=this.sound.add('dragonpunch-s'); 
+  trackkick=this.sound.add('kick-s'); 
+    trackkickair=this.sound.add('kick-air'); 
+      trackpunchair=this.sound.add('punch-air'); 
+  trackhadoken = this.sound.add('hadoken-s'); 
+     trackvoiture=this.sound.add('burnout'); 
+  trackglaciere=this.sound.add('earthquake'); 
+        trackexplosion=this.sound.add('explosion'); 
+ tracksagat=this.sound.add('sagat-s'); 
+       trackbip=this.sound.add('bip'); 
+          tracktiger=this.sound.add('tigershot'); 
+      trackdjeed=this.sound.add('djeed-s');
+        trackscream=this.sound.add('scream'); 
+       trackhulk=this.sound.add('hulk-s'); 
+   trackhulkroar=this.sound.add('hulk-roar'); 
+      trackken=this.sound.add('ken'); 
+      trackshoryu=this.sound.add('shoryuken-s'); 
+      trackdbz=this.sound.add('dbz-s');
+      trackfinalflash=this.sound.add('finalflash');
+          trackteleport=this.sound.add('teleport');
+      trackall=this.sound.add('all');
+            trackzombie=this.sound.add('zombie');
+                  trackclear=this.sound.add('clear');
+      
+ bgd1 = this.add.sprite(-2100,00, 'fond2'); bgd1.setOrigin(0, 0);bgd1.setScale(3,3);
     //  A simple background for our game
- 
+     
 track.play();
+
+      
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
    
-
-
     // The player and its settings
-    player = this.physics.add.sprite(0,650, 'dude');
+    player = this.physics.add.sprite(0,350, 'dude'); player.setOrigin(0.5,0.5)
+ player.body.setSize(200, 200, true);
+
+ sagat = this.physics.add.sprite(2100,2650, 'sagadid');
+  enemy1 = this.physics.add.sprite(900,350, 'enemy1');
+      enemy1.setOrigin(0.5,0.5);enemy1.setSize(50, 50, true)
+    enemy2 = this.physics.add.sprite(1200,550, 'enemy1');
+  enemy2.setOrigin(0.5,0.5);enemy2.setSize(50, 50, true)
+  doctor = this.physics.add.sprite(1800,650, 'doctor');
+      doctor.setScale(3,3)
+   djeed = this.physics.add.sprite(2600,2650, 'djeed');
+      djeed.setScale(0.5,0.5)
+     vegeta = this.physics.add.sprite(8000,650, 'vegeta');
+     vegetaf=this.physics.add.sprite(000,10000, 'boulehado');  
+   hulk = this.physics.add.sprite(4000,2450, 'hulk');
+      theo = this.physics.add.sprite(4700,2450, 'theo');
+      mission = this.physics.add.sprite(0,6000, 'mission');
+      ;mission.depth=15;mission.setScale(0.7,0.7)
+  boffset= this.physics.add.sprite(player.x,player.y, 'boulehado');boffset.setAlpha(0);    
+  var emittercloud = this.add.particles('cloud').createEmitter({
+        x:200,
+        y:300,
+        speed: { min: -800, max:800 },
+        angle: { min: 0, max:360 },
+        scale: { start: 3, end: 0 },
+        blendMode: 'SCREEN',
+        //active: false,
+        lifespan: 500,
+        gravityY: -3000
+    });  glaciere = this.physics.add.sprite(800,-500, 'glaciere');emittercloud.startFollow(glaciere);emittercloud.setScale(2); 
+ glaciere.setScale(3,3);
+;
+      
+ 
+    player.on('animationcomplete', animComplete, this);
 
     //  Player physics properties. Give the little guy a slight bounce.
-    player.setBounce(0.2);
- 
-  
+
+sagat.setOrigin(0.5,0.5);sagat.setSize(150, 100, true);
+ sagat.setScale(-0.4,0.4);
+camvj= this.cameras.main;
+      myselfthis=this
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -102,9 +311,15 @@ track.play();
     });
   this.anims.create({
         key: 'punch',
-       frames: this.anims.generateFrameNumbers('dude', { start: 12, end: 14 }),
-        frameRate: 20,
-  
+       frames: this.anims.generateFrameNumbers('punch', { start: 0, end: 5 }),
+        frameRate: 15,
+   repeat: 0
+    });
+   this.anims.create({
+        key: 'kick',
+       frames: this.anims.generateFrameNumbers('kick', { start: 0, end: 5 }),
+        frameRate: 15,
+   repeat: 0
     });
  
     this.anims.create({
@@ -119,7 +334,119 @@ track.play();
         frameRate: 20,
         repeat: -1
     });
-this.cameras.main.startFollow(player);
+ this.anims.create({
+        key: 'boulehado-a',
+        frames: this.anims.generateFrameNumbers('boulehado', { start: 0, end: 1 }),
+        frameRate: 25,
+        repeat: -1
+    });
+  this.anims.create({
+        key: 'hadoken-a',
+        frames: this.anims.generateFrameNumbers('hadokendude', {
+          start: 0,
+          end: 19
+        }),
+        frameRate: 15,
+        repeat: 0,
+    delay :00,
+
+    
+      });
+   this.anims.create({
+        key: 'dragonpunch-a',
+        frames: this.anims.generateFrameNumbers('dragonpunch', {
+          start: 4,
+          end: 15
+        }),
+        frameRate: 15,
+        repeat: 0,
+    delay :000,
+
+    
+      });
+ this.anims.create({
+        key: 'sagadid-a',
+        frames: this.anims.generateFrameNumbers('sagadid', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+  this.anims.create({
+        key: 'enemy-a',
+        frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+   this.anims.create({
+        key: 'doctor-a',
+        frames: this.anims.generateFrameNumbers('doctor', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+ 
+  this.anims.create({
+        key: 'djeed-a',
+        frames: this.anims.generateFrameNumbers('djeed', { start: 0, end: 1 }),
+        frameRate: 5,
+        repeat: -1
+    });
+   this.anims.create({
+        key: 'voiture-a',
+        frames: this.anims.generateFrameNumbers('voiture', { start: 0, end: 1 }),
+        frameRate: 30,
+        repeat: -1
+    });
+  
+     this.anims.create({
+        key: 'vegeta-a',
+        frames: this.anims.generateFrameNumbers('vegeta', { start: 0, end: 1 }),
+        frameRate: 30,
+        repeat: -1
+    });
+          this.anims.create({
+        key: 'hulk-a',
+        frames: this.anims.generateFrameNumbers('hulk', { start: 0, end: 7 }),
+        frameRate: 10,
+        repeat: -1
+    });
+           this.anims.create({
+        key: 'tiger-a',
+        frames: this.anims.generateFrameNumbers('tiger', { start: 0, end: 12 }),
+        frameRate: 10,
+        repeat:-1,
+             delay:000
+    });
+            this.anims.create({
+        key: 'theo-a',
+        frames: this.anims.generateFrameNumbers('theo', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat:-1,
+             delay:000
+    });
+ 
+            this.anims.create({
+        key: 'djeedattack-a',
+        frames: this.anims.generateFrameNumbers('djeedattack', { start: 0, end: 3 }),
+        frameRate: 4,
+        repeat:-1,
+             delay:00
+    }); 
+ 
+             this.anims.create({
+        key: 'hulkattack-a',
+        frames: this.anims.generateFrameNumbers('hulkattack', { start: 0, end: 30 }),
+        frameRate: 30,
+        repeat:-1,
+             delay:00
+    }); 
+      
+      
+             this.anims.create({
+        key: 'shoryuken-a',
+        frames: this.anims.generateFrameNumbers('shoryuken', { start: 0, end: 21 }),
+        frameRate: 30,
+        repeat:-1,
+             delay:00
+    }); 
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -138,6 +465,22 @@ this.cameras.main.startFollow(player);
     });
 
     bombs = this.physics.add.group();
+  enemy1.anims.play('enemy-a', true); 
+    enemy2.anims.play('enemy-a', true); 
+ doctor.anims.play('doctor-a', true);    
+  djeed.anims.play('djeed-a', true); 
+  vegeta.anims.play('vegeta-a', true); 
+       hulk.anims.play('hulk-a', true); 
+             theo.anims.play('theo-a', true);  
+ if ( vegetalife<199){ this.tweens.add({
+        targets: vegeta,
+        y: vegeta.y+20,
+        duration: 800,
+        ease: 'ease-in-out',
+        yoyo: true,
+      repeat:-1
+
+    });     }
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -145,160 +488,1137 @@ this.cameras.main.startFollow(player);
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
-    this.physics.add.collider(bombs, platforms);
+  
+  this.physics.add.overlap(player, sagat);
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.overlap(player, stars, collectStar, null, this);
 
 
-this.physics.add.collider(player, bombs, hitBomb, null, this);
+      
+      
+  voiture = this.physics.add.sprite(player.x-1000, player.y, 'voiture');
+var emitter = this.add.particles('flame').createEmitter({
+        x:-90,
+        y:80,
+        speed: { min: -800, max: 2000 },
+        angle: { min: 280, max: 90 },
+        scale: { start: 1, end: 2 },
+        blendMode: 'SCREEN',
+        //active: false,
+        lifespan: 1000,
+        gravityY: 1800
+    }); emitter.startFollow(voiture);
+ 
+
  spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-keys = this.input.keyboard.addKeys('P,H,A,S,E,R');
-
-}
-
-function update ()
-{
-  if (Phaser.Input.Keyboard.JustDown(spacebar))
-    {
-      trackpunch.play();
+ zbutton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+ qbutton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+  sbutton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+  wbutton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+  xbutton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+  
+ 
+    },
+   update: function ()
+    {//console.log(player.x)
+      
+          if (player.x <-100) {player.x += 4}  ;
+   if (player.y <300) {player.y += 4}  ;
+   if (player.y >690) {player.y -= 4} 
+   if  (this.time.now > playoncesound) {trackvoiture.stop() ;  voitureok= 0;this.tweens.add({
+        targets: voiture,
+        props: {
+            x: { value: player.x-1900, duration: 1, flipX: false },
+            y: { value: player.y, duration: 1,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        yoyo: false,
+        repeat: 0
+    });
+                                       
+      this.tweens.add({
+        targets: glaciere,
+        props: {
+            x: { value: player.x+100, duration: 1, flipX: false },
+            y: { value: player.y-5000, duration: 1,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: false,
+        repeat: 0
+        
+    }); 
+           
+    this.cameras.main.startFollow(boffset)       
+                                       
+                                       }
+      
+     // console.log(boffset.x)
+  if (enemy1life+enemy2life+doctorlife<12 && player.x> 1000 )  {player.x -= 4;  
+ 
     }
-   if (player.x <-100) {player.x += 4}  ;
- if (player.y <450) {player.y += 4}  ;
-   if (player.y >750) {player.y -= 4}  ;
+      if (enemy1life+enemy2life+doctorlife>11) {boffset.x=player.x;
+      boffset.y=player.y;   
+
+
+          if(this.time.now> biplayed && bipcount<2) {trackbip.volume = 5;trackbip.play();biplayed=this.time.now+1000 ; bipcount++; arrow= this.physics.add.sprite(1000,450, 'arrow');arrow.setScale(0.2,0.2);  this.tweens.add({
+        targets: arrow,
+        props: {
+            x: { value:1100, duration: 500, flipX: false },
+            y: { value: 450, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: true,
+        repeat: 1
+             
+        
+    }); }}
+     
+    if (player.x < 600)    { boffset.x=player.x;
+      boffset.y=player.y;} 
+       if (player.x > 600)    { 
+      boffset.y=player.y;} 
+      
+      
+        if (sagatlife+djeedlife<18 && player.x> 2200 && zombie<1) {player.x = 2200;  
+ 
+    }
+      
+     
+    if (player.x < 1700 && player.x >1000 ) { boffset.x=player.x;
+      boffset.y=player.y;} 
+       if (player.x > 1700 && sagatlife+djeedlife<18 && zombie<1)    { 
+      boffset.y=player.y;boffset.x=1700;} 
+      
+
+      
+      if (sagatlife+djeedlife>18  && zombie<1){if(this.time.now> biplayed && bipcount<4) {trackbip.volume = 5;trackbip.play();biplayed=this.time.now+1000 ; arrow.x=2500; bipcount++;this.tweens.add({
+        targets: arrow,
+        props: {
+            x: { value:2600, duration: 500, flipX: false },
+            y: { value: 450, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: true,
+        repeat: 1,
+             hideOnComplete: true
+        
+    }); boffset.x=player.x; }}
+
+
+  if (hulklife<8 && player.x> 3500  && zombie<1) {player.x = 3500; 
+                                  
+ 
+    }
+      
+     
+    if (player.x <3000 && player.x >2300 ) { boffset.x=player.x;
+      boffset.y=player.y;} 
+       if (player.x > 3000 && hulklife<9  && zombie<1)    { 
+      boffset.y=player.y;boffset.x=3000;} 
+ 
+      if (hulklife>8  && zombie<1){if(this.time.now> biplayed && bipcount<6) {trackbip.volume = 5;trackbip.play();biplayed=this.time.now+1000 ; arrow.x=3200; bipcount++;this.tweens.add({
+        targets: arrow,
+        props: {
+            x: { value:3400, duration: 500, flipX: false },
+            y: { value: 450, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: true,
+        repeat: 1,
+             hideOnComplete: true
+        
+    }); boffset.x=player.x;   }}
+
+
+      
+
+       if (player.x > 3900 && theolife<9  && zombie<1 )    { player.x -=4;
+      boffset.y=player.y;boffset.x=3800;} 
+ 
+      if (theolife>8  && zombie<1){if(this.time.now> biplayed && bipcount<8) {trackbip.volume = 5;trackbip.play();biplayed=this.time.now+1000 ; arrow.x=3900; bipcount++;this.tweens.add({
+        targets: arrow,
+        props: {
+            x: { value:4000, duration: 500, flipX: false },
+            y: { value: 450, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: true,
+        repeat: 1,
+             hideOnComplete: true
+        
+    }); boffset.x=player.x;   }}
+   
+   
+if (vegetalife<199 && player.x> 5000  && zombie<1) {player.x -= 4; 
+                                  
+ 
+    }    
+   if (player.x > 4500 && vegetalife<199  && zombie<1)    { 
+      boffset.y=player.y;boffset.x=4500;}  
+
+      if (vegetalife>199  && zombie<1){if(this.time.now> biplayed && bipcount<10) {trackbip.volume = 5;trackbip.play();biplayed=this.time.now+1000 ; arrow.x=4500; bipcount++;this.tweens.add({
+        targets: arrow,
+        props: {
+            x: { value:4600, duration: 500, flipX: false },
+            y: { value: 450, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: true,
+        repeat: 1,
+             hideOnComplete: true
+        
+    });vegeta.y=vegeta.y+1000; boffset.x=player.x;   }}
+     
+    if( player.x > 1500) {track.stop();if (sagatplayed < 1) {sagat.y=550;djeed.y=650;sagatlife=0;djeedlife=0; tracksagat.play();sagatplayed=1}}
+      if( player.x > 2800) {tracksagat.stop();if (hulkplayed < 1) {hulk.y=550;hulklife=0;trackhulk.play();hulkplayed=1}}
+       if( player.x > 3800) {trackhulk.stop();if (theoplayed < 1) {theo.y=450;theolife=0;trackken.play();theoplayed=1}}
+         if( player.x > 4700) {trackken.stop();if (vegetaplayed < 1 ){vegeta.y=550;vegeta.x=5500;vegetalife=0;trackdbz.play();vegetaplayed=1}}    
+        if( bipcount == 10) {trackdbz.stop();if (allplayed < 1 ){ zombie=2;trackall.play();
+            allplayed=1;      
+        sagat.y=550;sagat.x=5500;djeed.y=650;djeed.x=5400;
+          hulk.y=550;hulk.x=5300;
+          theo.y=450;theo.x=5800;
+                                                                  sagat.setTint(0x00FF00);
+                                                                  hulk.setTint(0x00FF00);
+                                                                  theo.setTint(0x00FF00);
+                                                                  djeed.setTint(0x00FF00);
+                                                                      vegeta.setTint(0x00FF00);
+                                                                  trackzombie.play();
+                                                                  
+        }
+                             
+                             
+                             }   
+  if( player.x > 6000)  {player.x= 6000}    
+           
+  if (sagat.x < player.x-350){sagat.anims.play('sagadid-a', true);sagat.setVelocityX(100);sagat.setScale(0.4,0.4);sagat.flipX=false;}   
+      
+if (sagat.x > player.x+350 && player.x>1500){sagat.anims.play('sagadid-a', true);sagat.setVelocityX(-100);sagat.setScale(0.4,0.4);sagat.flipX=true;}
+      
+   if (sagat.x > player.x-200 && sagat.x <player.x+200 && sagatlife < 9) {if (this.time.now > tigerplayonce) {sagat.anims.play('tiger-a', true);tigerplayonce=this.time.now+1200;sagat.setScale(1.5,1.5); tracktiger.play() ;enemyhitplayer(enemy, camvj)}}   
+ 
+ if (djeed.x < player.x-400 && sagatlife > 2){djeed.anims.play('djeed-a', true);djeed.setVelocityX(200);djeed.setScale(0.5,0.5);djeed.flipX=true;}   
+      
+if (djeed.x > player.x+400 &&  sagatlife > 2){djeed.anims.play('djeed-a', true);djeed.setVelocityX(-200);djeed.setScale(0.5,0.5);djeed.flipX=false;}
+      if (djeed.x > player.x+400 &&  zombie > 1){djeed.anims.play('djeed-a', true);djeed.setVelocityX(-200);djeed.setScale(0.5,0.5);djeed.flipX=false;}
+      
+   if (djeed.x > player.x-200 && djeed.x <player.x+200 && djeedlife < 6) {if (this.time.now > tigerplayonce) {djeed.anims.play('djeedattack-a', true);tigerplayonce=this.time.now+1200;djeed.setScale(0.5,0.5); trackdjeed.play() ;enemyhitplayer(enemy, camvj)}}   
+      
+if (djeedlife>3) {trackdjeed.stop()}
+
+  if (enemy1.x < player.x-200) {enemy1.setVelocityX(100);enemy1.flipX = true; }
+
+if (player.x+300-enemy1.x < 0){enemy1.setVelocityX(-100);enemy1.setScale(3,3);enemy1.flipX = false;}
+      
+    if (enemy2.x < player.x-200) {enemy2.setVelocityX(100);enemy2.setScale(3,3);enemy2.flipX = true;}
+
+if (player.x+300-enemy2.x < 0){enemy2.setVelocityX(-100);enemy2.setScale(3,3);enemy2.flipX = false;}
+     
+  if (doctor.x < player.x-200) {doctor.setVelocityX(100);doctor.flipX = true}
+
+if (player.x+300-doctor.x < 0){doctor.setVelocityX(-100);doctor.flipX = false;}
+      
+   if (hulk.x < player.x-350){hulk.anims.play('hulk-a', true);hulk.setVelocityX(100);hulk.setScale(1.5,1.5);hulk.flipX=false;}   
+      
+if (hulk.x > player.x+350 && player.x>2500 && sagatlife+djeedlife>13){hulk.anims.play('hulk-a', true);hulk.setVelocityX(-100);hulk.setScale(1.5,1.5);hulk.flipX=true;}
+      if (hulk.x > player.x+350 && player.x>2500 && zombie>1){hulk.anims.play('hulk-a', true);hulk.setVelocityX(-100);hulk.setScale(1.5,1.5);hulk.flipX=true;}
+      
+   if (hulk.x > player.x-200 && hulk.x <player.x+200 && hulklife < 9) {if (this.time.now > hulkplayonce) {hulk.anims.play('hulkattack-a', true);hulkplayonce=this.time.now+1200;hulk.setScale(2,2); trackhulkroar.play() ;enemyhitplayer(enemy, camvj)}}   
+           
+      
+   if (theo.x < player.x-350){theo.anims.play('theo-a', true);theo.setVelocityX(100);theo.setScale(0.5,0.5);theo.flipX=false;}   
+      
+if (theo.x > player.x+350 && hulklife>7){theo.anims.play('theo-a', true);theo.setVelocityX(-100);theo.setScale(0.5,0.5);theo.flipX=true;}
+      if (theo.x > player.x+350 && zombie>1){theo.anims.play('theo-a', true);theo.setVelocityX(-100);theo.setScale(0.5,0.5);theo.flipX=true;}
+      
+   if (theo.x > player.x-200 && theo.x <player.x+200 && theolife < 9) {if (this.time.now > theoplayonce) {theo.anims.play('shoryuken-a', true);theoplayonce=this.time.now+800;theo.setScale(2,2); trackshoryu.play() ;enemyhitplayer(enemy, camvj)}}   
+  
+      
+        
+   if (vegeta.x < player.x-350){vegeta.anims.play('vegeta-a', true);vegeta.setVelocityX(100);vegeta.setScale(1,1);vegeta.flipX=true;vegetaright=1; vegetaleft=0}   
+      
+if (vegeta.x > player.x+350 && theolife>7){vegeta.anims.play('vegeta-a', true);vegeta.setVelocityX(-100);vegeta.setScale(1,1);vegeta.flipX=false; vegetaright=0; vegetaleft=1}
+      if (vegeta.x > player.x+350 && zombie>1){vegeta.anims.play('vegeta-a', true);vegeta.setVelocityX(-100);vegeta.setScale(1,1);vegeta.flipX=false; vegetaright=0; vegetaleft=1}
+      
+      
+   if (vegeta.x > player.x-300 && vegeta.x <player.x+300 && vegetalife <200) {
+    
+     if (this.time.now > vegetaplayonce && vegetaleft>0) { vegetaf.setAlpha(0);  vegetaf.x=vegeta.x-450;vegetaf.y=vegeta.y-320;vegetaf.setVelocityX(-100);
+         var particlesveg2 = this.add.particles('flares');
+
+    var emitterveg = particlesveg2.createEmitter({
+ frame: 'blue',
+        x: 300,
+        y: 300,
+        lifespan: 1000,
+        speed: { min: 2000, max: 2000 },
+        angle: 180,
+        gravityY: 000,
+        scale: { start: 2, end: 5 },
+        quantity: 1,
+        blendMode: 'ADD',
+      on: false
+    }); emitterveg.startFollow(vegetaf);
+     emitterveg.start();
+      this.time.delayedCall(2000, function() {
+    particlesveg2.destroy();
+});
+vegetaplayonce=this.time.now+4000;trackfinalflash.volume=0.5;trackfinalflash.play() ;enemyhitplayer(enemy, camvj)}
+     
+       if (this.time.now > vegetaplayonce && vegetaright>0) { vegetaf.setAlpha(0);  vegetaf.x=vegeta.x-200;vegetaf.setVelocityX(100);vegetaf.y=vegeta.y-320;
+         var particlesveg2 = this.add.particles('flares');
+
+    var emitterveg = particlesveg2.createEmitter({
+ frame: 'blue',
+        x: 300,
+        y: 300,
+        lifespan: 1000,
+        speed: { min: 2000, max: 2000 },
+        angle: 360,
+        gravityY: 000,
+        scale: { start: 2, end: 5 },
+        quantity: 1,
+        blendMode: 'ADD',
+      on: false
+    }); emitterveg.startFollow(vegetaf);
+     emitterveg.start();
+      this.time.delayedCall(2000, function() {
+    particlesveg2.destroy();
+});
+vegetaplayonce=this.time.now+4000;trackfinalflash.volume=0.5;trackfinalflash.play() ; enemyhitplayer(enemy, camvj)}
+   
+ }
+               
+      
+             
+  if (player.y > sagat.y) {player.depth = 10; sagat.depth=9}
+  
+ else {sagat.depth=12}
+  
+    if (player.y > enemy1.y) {player.depth = 10; enemy1.depth=9}
+  
+ else {enemy1.depth=12}
+  
+      if (player.y > enemy2.y) {player.depth = 10; enemy2.depth=9}
+  
+ else {enemy2.depth=12}
+  
+    
+      if (player.y > doctor.y) {player.depth = 10; doctor.depth=9}
+  
+ else {doctor.depth=12}
+         
+      if (player.y > djeed.y) {player.depth = 10; djeed.depth=9}
+  
+ else {djeed.depth=12}
   
   
+  if (cursors.left.isDown && cursors.up.isDown )
+    {  leftlast=1;
+         if (Phaser.Input.Keyboard.JustDown(spacebar) )
+               { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1400 ;
+               }
+                  else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1400 
+                                     }
+               }
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play(); player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 1400 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 1400 
+                                     }
+               }
+      if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               { trackkickair.play(); if(rightlast>0) {player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400  ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+              if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               {trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+                                     }
+               }  
+     
+        if (this.time.now > playonce)  {player.setVelocityX(0);player.setScale(-1,1);player.x -= 4; player.y -= 4;player.anims.play('left', true); 
+           }
+    }
+
   
+  else if (cursors.left.isDown && cursors.down.isDown)
+    {leftlast=1;righlast=0;
+       if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                     }
+               }
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               { trackkickair.play(); if(rightlast>0) { player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){ player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now +400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+        if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               { trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400 
+                                ;   kickcheck(enemy, camvj);   }
+               }  
+     
+     
+        if (this.time.now > playonce)  { player.setScale(-1,1);player.x -= 4; player.y += 4;player.anims.play('left', true); 
+           }
+    }
   
-    if (gameOver)
-    {
-        return;
+    else if (cursors.right.isDown && cursors.down.isDown)
+    {rightlast=1;leftlast=0;
+     if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 1410 
+                                     }
+               }
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) { player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+        if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               {trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400 ;kickcheck(enemy, camvj); kickcheck(enemy, camvj);
+                                     }
+               }  
+     
+     
+        if (this.time.now > playonce)  { player.setScale(1,1);player.x += 4; player.y += 4;player.anims.play('left', true); 
+           }
+    }
+   
+ 
+   
+    else if (cursors.right.isDown && cursors.up.isDown)
+    { rightlast=1;leftlast=0;
+       if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                     }
+               }
+     
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) { player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){ player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+        if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               {trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400;kickcheck(enemy, camvj); 
+                                     }
+               }  
+     
+     
+        if (this.time.now > playonce)  {player.setScale(1,1);player.x += 4; player.y -= 4;player.anims.play('left', true); 
+           }
+    } 
+    
+      else if (cursors.right.isDown && cursors.up.isUp && cursors.down.isUp)
+    { rightlast=1;leftlast=0;
+      if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();   player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                     }
+               }
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) {player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+         if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               {trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+        if (this.time.now > playonce)  {player.setScale(1,1);player.x += 4;player.anims.play('left', true); 
+           }
     } 
   
-  if (cursors.left.isDown)
-    {
-         player.x -= 4; 
-      player.setScale(-1,1);
-
-        player.anims.play('left', true); 
-      if (keys.A.isDown)
-    {
-       player.anims.play('punch', true);
-    }
-      
-       if (cursors.up.isDown)
-    {
-         player.y -= 4;
-      if (keys.A.isDown)
-    {
-       player.anims.play('punch', true);
-    }
-      
-    } 
-      if (cursors.down.isDown)
-    {
-         player.y += 4;
-      if (keys.A.isDown)
-    {
-       player.anims.play('punch', true);
-    }
-      
-      
-    }
-      
+       else if (cursors.left.isDown && cursors.up.isUp && cursors.down.isUp )
+    {leftlast=1;rightlast=0; 
+    
+     if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+      if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                     }
+               }
+     
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) {  player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){ player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+        if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               { trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400 ;kickcheck(enemy, camvj); 
+                                     }
+               }  
+     
+        if (this.time.now > playonce)   {player.setScale(-1,1);player.x -= 4;player.anims.play('left', true); 
+           }
     }  
   
   
-  else if (cursors.right.isDown)
-    {
-                   player.x += 4
-                   player.setScale(1,1);
-                   player.anims.play('right', true); 
-       if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    }
-                 if (cursors.up.isDown)
-        {
-                player.y -= 4;
-          if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    }
+  
+         else if (cursors.up.isDown && cursors.left.isUp && cursors.right.isUp  )
+    { 
+        if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }}
+       if (Phaser.Input.Keyboard.JustDown(zbutton) )
+               { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                     }
+               }
       
-         } 
-               if (cursors.down.isDown)
-         {
-               player.y += 4;
-      if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    }
+            if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) { player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){ player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400  ;kickcheck(enemy, camvj);
+                                     }
+               }     
+     
+         if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               { trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400; kickcheck(enemy, camvj); 
+                                     }
+               }  
       
-         }
-    }
-
- else if (cursors.up.isDown) { player.y -= 4; player.anims.play('right', true);  if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    } }
-  else if (cursors.down.isDown) { player.y += 4; player.anims.play('right', true); if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    } }
+      
+        if (this.time.now > playonce)   {player.setScale(1,1); player.y -= 4;player.anims.play('left', true); 
+           }
+    }  
   
+  
+  
+         else if (cursors.down.isDown)
+    { 
+        if (Phaser.Input.Keyboard.JustDown(spacebar) ) 
+        { 
+          if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;
+                          }
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500
+                                                                          }
+        }
+       if (Phaser.Input.Keyboard.JustDown(zbutton) ) 
+        { 
+          if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();   player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800 
+                                                                          }
+        }
+      
+           if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) { player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){ player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400 ;kickcheck()
+                                     }
+               }     
+            if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               { trackpunchair.play(); if(rightlast>0) { player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400; kickcheck(enemy, camvj); 
+                                     }
+               }     
+     
+      
+        if (this.time.now > playonce)    {player.setScale(1,1); player.y += 4;player.anims.play('left', true); 
+           }
+    }  
+  
+ else  if (Phaser.Input.Keyboard.JustDown(spacebar) ) { if(rightlast>0) {trackhadoken.play();  player.anims.play('hadoken-a', true);  this.tweens.add({
+        targets: player,
+        props: {
+            x: { value:player.x-1, duration: 500, flipX: false },
+            y: { value:player.y, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+        onComplete: animComplete,              
+        yoyo: false,
+        repeat: 0
+                  
+    }); player.setScale(1.5,1.5);bouleok=1; playonce= this.time.now + 1500 ;}
+                                                       else if(leftlast>0){trackhadoken.play();  player.anims.play('hadoken-a', true);this.tweens.add({
+        targets: player,
+        props: {
+            x: { value:player.x-1, duration: 500, flipX: false },
+            y: { value:player.y, duration: 500,  },
+        },
+        ease: 'Sine.easeInOut',
+        onComplete: animComplete,              
+        yoyo: false,
+        repeat: 0
+                  
+    });player.setScale(-1.5,1.5);bouleok=1; playonce= this.time.now + 1500 }
+ }
+  else  if (Phaser.Input.Keyboard.JustDown(zbutton) ) { if(rightlast>0) {kickcheck(enemy, camvj);trackdragonpunch.play();   player.anims.play('dragonpunch-a', true);player.setScale(1.5,1.5);player.setVelocityX(100) ;playonce= this.time.now + 800 ;
+               }
+                  else if(leftlast>0){kickcheck(enemy, camvj);trackdragonpunch.play();  player.anims.play('dragonpunch-a', true);player.setScale(-1.5,1.5);player.setVelocityX(-100);playonce= this.time.now + 800  }
+ }
  
-  else   {  player.anims.play('turn', false); 
-         if (keys.A.isDown)
-    {
-       player.anims.play('punch', false);
-    }
-         }
+    else  if (Phaser.Input.Keyboard.JustDown(qbutton) )
+               {trackkickair.play(); if(rightlast>0) {player.anims.play('kick', true);player.setScale(1.8,1.8);playonce= this.time.now + 400 ;kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){player.anims.play('kick', true);player.setScale(-1.8,1.8);playonce= this.time.now + 400 ; kickcheck(enemy,camvj);                                     }
+               }     
+  
+     
+        else if (Phaser.Input.Keyboard.JustDown(sbutton) )
+               { trackpunchair.play(); if(rightlast>0) {  player.anims.play('punch', true);player.setScale(1,1);playonce= this.time.now + 400 ; kickcheck(enemy, camvj);
+               }
+                  else if(leftlast>0){  player.anims.play('punch', true);player.setScale(-1,1);playonce= this.time.now + 400;kickcheck(enemy, camvj);
+                                     }
+               }  
 
+        else if (Phaser.Input.Keyboard.JustDown(wbutton))
+               { this.cameras.main.startFollow(voiture);trackvoiture.play(); voiture.anims.play('voiture-a');this.physics.add.overlap(sagat, voiture, kickeffect, null, this);this.physics.add.overlap(enemy1, voiture, kickeffect, null, this);this.physics.add.overlap(doctor, voiture, kickeffect, null, this) 
+                this.physics.add.overlap(enemy2, voiture, kickeffect, null, this) ;
+                this.physics.add.overlap(djeed, voiture, kickeffect, null, this) ;
+                this.physics.add.overlap(hulk, voiture, kickeffect, null, this) ;
+                this.physics.add.overlap(theo, voiture, kickeffect, null, this) ;
+                this.physics.add.overlap(vegeta, voiture, killvegeta, null, this) ;//voiture.anims.play('boulehado-a', true); 
+                voiture.setScale(1,1) ; this.tweens.add({
+        targets: voiture,
+        props: {
+            x: { value: player.x+5000, duration: 2000, flipX: false },
+            y: { value: player.y, duration: 2000,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:1000,
+         
+        yoyo: false,
+        repeat: 0
+                  
+    });  
+                
+                playoncesound= this.time.now + 2000; voitureok= 1
+               }        
+      
+   else if (Phaser.Input.Keyboard.JustDown(xbutton))
+               { this.cameras.main.startFollow(glaciere);trackglaciere.play();  trackglaciere.volume = 5;this.physics.add.overlap(sagat, glaciere, kickeffect, null, this);this.physics.add.overlap(enemy1, glaciere, kickeffect, null, this);this.physics.add.overlap(doctor, glaciere, kickeffect, null, this) 
+                this.physics.add.overlap(djeed, glaciere, kickeffect, null, this);
+                
+                 this.physics.add.overlap(theo, glaciere, kickeffect, null, this);
+               this.physics.add.overlap(hulk, glaciere, kickeffect, null, this); 
+                this.physics.add.overlap(vegeta, glaciere, killvegeta, null, this);
+                
+               this.tweens.add({
+        targets: glaciere,
+        props: {
+            x: { value: player.x+500, duration: 1000, flipX: false },
+            y: { value: player.y-100, duration: 1000,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:1000,
+        onComplete: onCompleteHandler,          
+        yoyo: false,
+        repeat: 0
+    });  
+                
+                playoncesound= this.time.now + 3000;this.cameras.main.shake(1000,0.01);
+               } 
+  
+  
+else if (this.time.now > playonce){ player.anims.play('turn', true) ;player.setVelocityX(0);if(rightlast>0) {player.setScale(1,1); } if(leftlast>0) {player.setScale(-1,1); }   
+     }
+      
+      
  
-  
-  
-  
-  
-}
-
-function punchanim ()
-  {}
-
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-
-    //  Add and update the score
-    score += 10;
-    scoreText.setText('Score: ' + score);
-
-    if (stars.countActive(true) === 0)
-    {
-        //  A new batch of stars to collect
-        stars.children.iterate(function (child) {
-
-            child.enableBody(true, child.x, 0, true, true);
-
-        });
-
-        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-        bomb.allowGravity = false;
-
+function enemyhitplayer (enemy, camvj)
+ {
+   if (sagat.x < player.x && sagat.y < player.y+100 && sagat.y > player.y-100  ) 
+    {if(player.x - sagat.x < 150) 
+      {  myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x+250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: false,
+        repeat: 0
+    });  trackpunch.play();trackscream.play(); camvj.shake(1000,0.01);
     }
-}
-
-function hitBomb (player, bomb)
-{
+ else if (sagat.x > player.x && sagat.y < player.y+100 && sagat.y > player.y-100) 
+    {if(sagat.x - player.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x-250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+      
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();trackscream.play(); camvj.shake(1000,0.01);}
+    }
+    }
+  
    
+    if (djeed.x < player.x && djeed.y < player.y+100 && djeed.y > player.y-100  ) 
+    {if(player.x - djeed.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x+250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+       
+        yoyo: false,
+        repeat: 0
+    }); trackpunch.play();camvj.shake(1000,0.01);
+    }
+ else if (djeed.x > player.x && djeed.y < player.y+100 && djeed.y > player.y-100) 
+    {if(djeed.x - player.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x-250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+       
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();camvj.shake(1000,0.01);}
+    }
+    }
   
+    if (hulk.x < player.x && hulk.y < player.y+100 && hulk.y > player.y-100  ) 
+    {if(player.x - hulk.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x+250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+           
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();camvj.shake(1000,0.01);
+    }
+ else if (hulk.x > player.x && hulk.y < player.y+100 && hulk.y > player.y-100) 
+    {if(player.x - hulk.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x-250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+       
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();camvj.shake(1000,0.01);}
+    }
+    }
+   
+     if (theo.x < player.x && theo.y < player.y+100 && theo.y > player.y-100  ) 
+    {if(player.x - theo.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x+250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+           
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();camvj.shake(1000,0.01);
+    }
+ else if (theo.x > player.x && theo.y < player.y+100 && theo.y > player.y-100) 
+    {if(theo.x - theo.x < 150) 
+      { myselfthis.tweens.add({
+        targets: player,
+        props: {
+            x: { value: player.x-250, duration: 200, flipX: false },
+            y: { value: player.y, duration: 200,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+       
+        yoyo: false,
+        repeat: 0
+    }); ;trackpunch.play();camvj.shake(1000,0.01);}
+    }
+    }
+   
+} 
+       function onCompleteHandler (camvalue)
+{trackglaciere.stop();
+  trackexplosion.play();  trackexplosion.volume = 5;camvj.shake(500,0.02);
+
+if (zombie==2) { trackpunch.play();trackdead.volume=5;trackdead.play(); zombiecount++;}
+   if (zombiecount> 2 ) {trackclear.play(); trackzombie.stop();trackall.stop();       sagat.setAlpha(0);djeed.setAlpha(0);
+          hulk.setAlpha(0);
+          theo.setAlpha(0); vegeta.setAlpha(0) ; mission.x= player.x; mission.y= player.y-2000; myselfthis.tweens.add({
+         targets: mission,
+        props: {
+            x: { value: player.x+50, duration: 5000, flipX: false },
+            y: { value: player.y, duration: 5000,  },
+        },
+        ease: 'Sine.easeInOut',
+                  delay:0,
+        
+        yoyo: false,
+        onComplete: onCompleteHandlerClear,  
+        repeat: 0
+    });     
+}   } 
+
+
+
+      
+       function onCompleteHandlerClear (camvalue)
+{
+   myselfthis.time.delayedCall(5000, function() {
+    var url = 'http://rage-vijou2467841.codeanyapp.com/film%203.mp4' 
+        window.location.href = url;})
 }
+      
+  if (zombie==2 ) {sagat.setVelocityY(0);
+                djeed.setVelocityY(0);
+                hulk.setVelocityY(0);
+                theo.setVelocityY(0);
+                  vegeta.setVelocityY(0);     
+                     sagat.y=550;djeed.y=650;
+          hulk.y=550;
+          theo.y=450;
+                                   }
+                  
+              if (vegeta.x < player.x-350 && zombie==2){vegeta.anims.play('vegeta-a', true); vegeta.y= 650 ;vegeta.x = vegeta.x+10; vegeta.setVelocityX(100); vegeta.setVelocityY(0); vegeta.x += 10; vegeta.setScale(1,1);vegeta.flipX=true;vegetaright=1; vegetaleft=0}   
+      
+if (vegeta.x > player.x+350 && zombie==2) {vegeta.anims.play('vegeta-a', true);  vegeta.y=650; vegeta.x = vegeta.x-10;vegeta.setVelocityY(0); vegeta.setVelocityX(-100); vegeta.setScale(1,1);vegeta.flipX=false; vegetaright=0; vegetaleft=1}
+  
+
+   
+      
+      
+    }
+});
+
+var SceneC = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function SceneC ()
+    {
+        Phaser.Scene.call(this, { key: 'sceneC' });
+    },
+
+    preload: function ()
+    {
+        this.load.image('mech', 'assets/pics/titan-mech.png');
+    },
+
+    create: function ()
+    {
+        this.add.sprite(Phaser.Math.Between(0, 800), 300, 'mech');
+
+        this.input.once('pointerdown', function (event) {
+
+            console.log('From SceneC to SceneA');
+
+            this.scene.start('sceneA');
+
+        }, this);
+    }
+
+});
+
+var config = {
+    type: Phaser.AUTO,
+  
+    width: 1250,
+    backgroundColor: '#1E423A',
+    parent: 'phaser-example',
+    scene: [ SceneA, SceneB, SceneC ],
+  height: 690,
+  
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { x: 0 }
+        }
+    }    
+};
+
+var player;
+  var sagadid
+var stars;
+var bombs;
+var platforms;
+var cursors;
+var score = 0;
+var gameOver = false;
+var scoreText;
+var mixedbutton ;
+var rightlast=1;  
+var fireButton;  
+var keys;
+var game = new Phaser.Game(config);
+var playonce = 0;
+  var playoncesound=0;
+  var tigerplayonce = 0;
+  var hulkplayonce = 0 ;
+  var theoplayonce = 0;
+  var vegetaplayonce = 0;
+ var leftlast=0;
+ var bouleok=0;
+  var boule;
+  var sagatlife=0
+    var doctorlife=0
+       var enemy1life=0
+       var enemy2life=0
+       var djeedlife=0;
+  var hulklife=0;
+  var vegetalife=0;
+  var theolife=0;
+ var voitureok = 0;     
+var camvj=0   
+var enemy
+var sagatplayed=0;
+  var vegetaplayed=0;
+  var hulkplayed=0;
+  var theoplayed=0;
+var  biplayed = 0;
+  var allplayed=0;
+var  bipcount=0;
+  var vegetaleft=0;
+  var vegetaright=1
+var hadoeffect=0;
+var zombie=0;
+var vegetazombie= 0;
+  var zombiecount = 0;
+
+
+
+  
+
+function animComplete ()
+{ if (bouleok>0 && rightlast>0){boule = myselfthis.physics.add.sprite(player.x+100,player.y, 'boulehado');boule.depth=9;player.depth=10;myselfthis.physics.add.overlap(sagat, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(enemy1, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(enemy2, boule, hadokencheck, null, this);;myselfthis.physics.add.overlap(djeed, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(hulk, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(doctor, boule, hadokencheck, null, this) ;myselfthis.physics.add.overlap(theo, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(vegeta, boule, hadokencheck, null, this);boule.setOrigin(0.5,0.5) ;boule.setSize(200, 150, true); boule.anims.play('boulehado-a', true); boule.setScale(1.6,1.6) ;boule.setVelocityX(300);  bouleok=0;hadoeffect=1}
+ else if (bouleok>0 && leftlast>0){boule = myselfthis.physics.add.sprite(player.x-120,player.y, 'boulehado');myselfthis.physics.add.overlap(sagat, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(enemy1, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(enemy2, boule, hadokencheck, null, this);;myselfthis.physics.add.overlap(djeed, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(hulk, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(doctor, boule, hadokencheck, null, this) ;myselfthis.physics.add.overlap(theo, boule, hadokencheck, null, this);myselfthis.physics.add.overlap(vegeta, boule, hadokencheck, null, this);boule.anims.play('boulehado-a', true); boule.setScale(-1.6,1.6) ;boule.setVelocityX(-300); bouleok=0;hadoeffect=1}  
+   }
+
+  
+  function hadokencheck (enemy,camvalue){ 
+    if (hadoeffect>0) {
+      camvj.shake(500,0.01);trackpunch.play();trackdead.play(); hadoeffect=0;boule.disableBody(true, true);  }
+     if (enemy==enemy1 && zombie< 1) {enemy1life++ ;if (enemy1life>3) {enemy1.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==enemy2  && zombie< 1) {enemy2life++ ;if (enemy2life>3) {enemy2.setVelocityY(-10000)}
+                                                                        
+                                                         }
+  
+   if (enemy==doctor  && zombie< 1) {doctorlife++ ;if (doctorlife>3) {doctor.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==sagat  && zombie< 1) {sagatlife++ ;if (sagatlife>8 ) {sagat.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==djeed  && zombie< 1) {djeedlife++ ;if (djeedlife>8) {djeed.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==hulk  && zombie< 1) {hulklife++ ;if (hulklife>8 ){hulk.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==theo  && zombie< 1) {theolife++ ;if (theolife>8) {theo.setVelocityY(-10000)}
+                                                                        
+                                                         }
+    if (enemy==vegeta  && zombie< 1) {trackpunch.stop();trackdead.stop();kickeffect(vegeta, camvj)}
+                                                
+  }
+  
+  function kickcheck (enemy,camvj)
+  {
+
+        if (enemy1.x < player.x) 
+    {if(player.x - enemy1.x < 400  && player.y - enemy1.y <50 && enemy1.y - player.y >-50) 
+      {kickeffect(enemy1, camvj)}
+    }
+ else if (enemy1.x > player.x) 
+    {if(enemy1.x - player.x < 200 && player.y - enemy1.y <50 && enemy1.y - player.y >-50) 
+      {kickeffect(enemy1, camvj)}
+    }
+   
+            if (enemy2.x < player.x) 
+    {if(player.x - enemy2.x < 400  && player.y - enemy2.y <50 && enemy2.y - player.y >-50) 
+      {kickeffect(enemy2, camvj)}
+    }
+ else if (enemy2.x > player.x) 
+    {if(enemy2.x - player.x < 200 && player.y - enemy2.y <50 && enemy2.y - player.y >-50) 
+      {kickeffect(enemy2, camvj)}
+    }
+    
+            if (doctor.x < player.x) 
+    {if(player.x - doctor.x < 300 && player.y - doctor.y <50 && doctor.y - player.y >-50) 
+      {kickeffect(doctor, camvj)}
+    }
+ else if (doctor.x > player.x) 
+    {if(doctor.x - player.x < 200 && player.y - doctor.y <50 && doctor.y - player.y >-50) 
+      {kickeffect(doctor, camvj)}
+    }
+    
+         if (sagat.x < player.x) 
+    {if(player.x - sagat.x < 300 && player.y - sagat.y <50 && sagat.y - player.y >-50  ) 
+      {kickeffect(sagat, camvj)}
+    }
+ else if (sagat.x > player.x) 
+    {if(sagat.x - player.x < 200 && player.y - sagat.y <30 && sagat.y - player.y >-30 ) 
+      {kickeffect(sagat, camvj)}
+    }
+    
+         if (djeed.x < player.x) 
+    {if(player.x - djeed.x < 300 && player.y - djeed.y <30 && djeed.y - player.y >-30  ) 
+      {kickeffect(djeed, camvj)}
+    }
+ else if (djeed.x > player.x) 
+    {if(djeed.x - player.x < 150 && player.y - djeed.y <30 && djeed.y - player.y >-30 ) 
+      {kickeffect(djeed, camvj)}
+    }
+    
+       if (hulk< player.x) 
+    {if(player.x - hulk < 300 && player.y - hulk <75 && hulk.y - player.y >-75  ) 
+      {kickeffect(hulk, camvj)}
+    }
+ else if (hulk.x > player.x) 
+    {if(hulk.x - player.x < 200 && player.y - hulk.y <75 && hulk.y - player.y >-75 ) 
+      {kickeffect(hulk, camvj)}
+    }  
+   
+         if (theo< player.x) 
+    {if(player.x - theo < 300 && player.y - theo.y <50 && theo.y - player.y >-50  ) 
+      {kickeffect(theo, camvj)}
+    }
+ else if (theo.x > player.x) 
+    {if(theo.x - player.x < 200 && player.y - theo.y <50 && theo.y - player.y >-50 ) 
+      {kickeffect(theo, camvj)}
+    }
+  
+        if (vegeta.x< player.x) 
+    {if(player.x - vegeta.x < 300 && player.y - vegeta.y <50 && vegeta.y - player.y >-50  ) 
+      {kickeffect(vegeta, camvj)}
+    }
+ else if (vegeta.x > player.x) 
+    {if(vegeta.x - player.x < 200 && player.y - vegeta.y <50 && vegeta.y - player.y >-50 ) 
+      {kickeffect(vegeta, camvj)}
+    } 
+    
+    
+  }
+  
+   function killvegeta (enemy, camvalue)  { if(rightlast>0) {if(vegetalife<200 ){trackpunch.play();trackdead.volume=5;trackdead.play();vegeta.setVelocityX(3000);vegetalife+=1;}if(vegetalife>200){vegeta.y=vegeta.y+1000}
+}
+ if(leftlast>0) if(vegetalife<200){trackdead.volume=5;trackpunch.play();trackdead.play();vegetalife+=1;}if(vegetalife>200){vegeta.y=vegeta.y+1000}         }
+  
+  
+   function kickeffect (enemy, camvalue)  { camvj.shake(500,0.01); if (bouleok<1) { boule = myselfthis.physics.add.sprite(player.x+10000,player.y, 'boulehado');boule.disableBody(true, true)}; 
+                                           if (voitureok > 0) {if ( sagat.x>player.x-200 && sagat.x<player.x+200) {sagatlife+=3; };if ( djeed.x>player.x-200 && djeed.x<player.x+200) {djeedlife+=3; };if ( enemy1.x>player.x-200 && enemy1.x<player.x+200) {enemy1life+=3; };if ( enemy2.x>player.x-200 && enemy2.x<player.x+200) {enemy2life+=3; };if ( doctor.x>player.x-200 && doctor.x<player.x+200) {doctorlife+=3; };if ( hulk.x>player.x-200 && hulk.x<player.x+200) {hulklife+=3; };if ( theo.x>player.x-200 && theo.x<player.x+200) {theolife+=3; }if ( vegeta.x>player.x-600 && vegeta.x<player.x+600) {vegetalife+=3; }
+                                           }
+                                       
+                                           
+  if(rightlast>0) {if(sagatlife<10 && enemy==sagat){trackpunch.play();trackdead.play();sagat.setVelocityX(3000);sagat.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);sagatlife++;}if(sagatlife>9){sagat.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(sagatlife<10 && enemy==sagat ){trackpunch.play();trackdead.play();sagat.setVelocityX(-3000);sagat.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);sagatlife++;}if(sagatlife>9){sagat.setVelocityY(-10000);} 
+
+                                 
+ if(rightlast>0) {if(doctorlife<10 && enemy==doctor){trackpunch.play();trackdead.play();doctor.setVelocityX(3000);doctor.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);doctorlife++;}if(doctorlife>3){doctor.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(doctorlife<10 && enemy==doctor ){trackpunch.play();trackdead.play();doctor.setVelocityX(-3000);doctor.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);doctorlife++;}if(doctorlife>3){doctor.setVelocityY(-10000);} 
+                                
+                                 
+ if(rightlast>0) {if(enemy1life<10 && enemy==enemy1){trackpunch.play();trackdead.play();enemy1.setVelocityX(3000);enemy1.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);enemy1life++;}if(enemy1life>3){enemy1.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(enemy1life<10 && enemy==enemy1 ){trackpunch.play();trackdead.play();enemy1.setVelocityX(-3000);enemy1.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);enemy1life++;}if(enemy1life>3){enemy1.setVelocityY(-10000);} 
+                                           
+if(rightlast>0) {if(enemy2life<10 && enemy==enemy2){trackpunch.play();trackdead.play();enemy2.setVelocityX(3000);enemy2.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);enemy2life++;}if(enemy2life>3){enemy2.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(enemy2life<10 && enemy==enemy2 ){trackpunch.play();trackdead.play();enemy2.setVelocityX(-3000);enemy2.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);enemy2life++;}if(enemy2life>3){enemy2.setVelocityY(-10000);}    
+ if(rightlast>0) {if(djeedlife<9 && enemy==djeed){trackpunch.play();trackdead.play();djeed.setVelocityX(3000);djeed.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);djeedlife++;}if(djeedlife>8){djeed.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(djeedlife<9 && enemy==djeed ){trackpunch.play();trackdead.play();djeed.setVelocityX(-3000);djeed.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);djeedlife++;}if(djeedlife>8){djeed.setVelocityY(-10000);} 
+
+ if(rightlast>0) {if(hulklife<9 && enemy==hulk){trackpunch.play();trackdead.play();hulk.setVelocityX(3000);hulk.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);hulklife++;}if(hulklife>8){hulk.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(hulklife<9 && enemy==hulk ){trackpunch.play();trackdead.play();hulk.setVelocityX(-3000);hulk.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);hulklife++;}if(hulklife>8){hulk.setVelocityY(-10000);}          
+                                           
+  if(rightlast>0) {if(theolife<9 && enemy==theo){trackpunch.play();trackdead.play();theo.setVelocityX(3000);theo.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);theolife++;}if(theolife>8){theo.setVelocityY(-10000);}
+}
+ if(leftlast>0) if(theolife<9 && enemy==theo ){trackpunch.play();trackdead.play();theo.setVelocityX(-3000);theo.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);theolife++;}if(theolife>8){theo.setVelocityY(-10000);}         
+                                           
+ if(rightlast>0) {if(vegetalife<9 && enemy==vegeta && zombie<1){trackteleport.play();vegeta.x=vegeta.x-400;vegeta.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);}if(vegetalife>8){vegeta.y = vegeta.y+1000;}
+}
+ if(leftlast>0) if(vegetalife<9 && enemy==vegeta && zombie<1 ){trackteleport.play();vegeta.x=vegeta.x+400;vegeta.setTint(0xfcfcfc, 0x000000, 0xffffff, 0xffffff);}if(vegetalife>8){vegeta.y = vegeta.y+1000;;} 
+                                 
+                                 
+} 
+
+
 </script>
 
-</body>
-</html>
+</body></html>
